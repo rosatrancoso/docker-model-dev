@@ -1,0 +1,6 @@
+wrf-dev:
+    build: .
+    volumes:
+        - $REPOS/wrf-model/WRF:/source/wrf
+        - $REPOS/wrf-model/WPS:/source/wps
+
