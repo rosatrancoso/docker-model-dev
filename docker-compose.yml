@@ -1,6 +1,7 @@
 wrf-dev:
-    build: .
+    # build: .
+    image: wrf-dev:latest
+    tty: true
     volumes:
-        - $REPOS/wrf-model/WRF:/source/wrf
-        - $REPOS/wrf-model/WPS:/source/wps
+        - $REPOS/wrf-model/:/source/wrf-model
 
