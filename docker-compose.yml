@@ -1,6 +1,6 @@
 wrf-dev:
     # build: .
-    image: wrf-dev:latest
+    image: rosatrancoso/wrf-dev:latest
     tty: true
     volumes:
         - $REPOS/wrf-model/:/source/wrf-model

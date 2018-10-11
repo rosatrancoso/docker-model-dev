@@ -45,19 +45,18 @@ RUN echo "Installing mpich..." &&\
 # RUN git clone --depth 1 https://github.com/wrf-model/WRF $REPOS/wrf &&\
 #     cd $REPOS/wrf &&\
 #     git fetch --tags &&\
-#     latestTag=$(git describe --tags `git rev-list --tags --max-count=1`) &&\
-#     git checkout -b $latestTag $latestTag
-
-# latesttag=$(git describe --tags)
-# echo checking out ${latesttag}
-# git checkout ${latesttag}
+#     latesttag=$(git describe --tags `git rev-list --tags --max-count=1`)
+#     echo checking out ${latesttag}&&\
+#     git checkout -b $latesttag $latesttag
 
 
-# RUN git clone git@github.com:NCAR/wrf_hydro_nwm_public.git $REPOS/wrf-dev/wrf_hydro_nwm_public &&\
-#     cd $REPOS/wrf-dev/wrf_hydro_nwm_public &&\
-#     latesttag=$(git describe --tags) &&\
-#     echo "checking out ${latesttag}" &&\
-#     git checkout ${latesttag}
+# v5.0.2
+# RUN git clone git@github.com:NCAR/wrf_hydro_nwm_public.git $REPOS/wrf-model/wrf_hydro_nwm_public &&\
+#     cd $REPOS/wrf-model/wrf_hydro_nwm_public &&\
+#     git fetch --tags &&\
+#     latesttag=$(git describe --tags `git rev-list --tags --max-count=1`)
+#     echo checking out ${latesttag}&&\
+#     git checkout -b $latesttag $latesttag
 
 
 
