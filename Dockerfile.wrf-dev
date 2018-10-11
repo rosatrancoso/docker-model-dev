@@ -1,32 +1,4 @@
-FROM centos:centos7
-
-RUN yum -y install epel-release &&\
-    yum -y install git vim sudo tar unzip wget python-pip python-devel \
-                   gcc gcc-gfortran gcc-c++ glibc-static zlib-static \
-                   man make  zlib-devel netcdf-devel netcdf-fortran &&\
-    yum -y update &&\
-    yum clean all
-
-
-ENV USER user
-ENV HOME /home/$USER
-ENV REPOS /source
-
-# Replace 1001 with your user / group id
-RUN export uid=1001 && \
-    adduser --uid $uid $USER &&\
-    echo "$USER ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/$USER && \
-    chmod 0440 /etc/sudoers.d/$USER
-
-RUN su - $USER -c "touch mine"
-CMD ["su", "-", $USER, "-c", "/bin/bash"]
-
-RUN mkdir $REPOS &&\
-    chown -R $USER:$USER $REPOS
-
-USER $USER
-
-# RUN sudo yum -y remove mpich
+FROM rosatrancoso/base
 
 RUN echo "Installing mpich..." &&\
     cd /tmp &&\

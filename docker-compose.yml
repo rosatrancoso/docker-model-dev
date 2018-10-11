@@ -1,7 +1,22 @@
-wrf-dev:
-    # build: .
-    image: rosatrancoso/wrf-dev:latest
+version: '2'
+
+services:
+
+  base:
+    build:
+      context: .
+      dockerfile: Dockerfile.base
+    image: rosatrancoso/base
+
+
+  wrf-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.wrf-dev
+    image: rosatrancoso/wrf-dev2
+    depends_on:
+      - base
     tty: true
     volumes:
-        - $REPOS/wrf-model/:/source/wrf-model
+          - $REPOS/wrf-model/:/source/wrf-model
 

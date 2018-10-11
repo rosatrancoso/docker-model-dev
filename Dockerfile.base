@@ -1,0 +1,22 @@
+FROM centos:centos7
+
+RUN yum -y install epel-release &&\
+    yum -y install git vim sudo tar unzip wget python-pip python-devel \
+                   gcc gcc-gfortran gcc-c++ glibc-static zlib-static \
+                   man make  zlib-devel  &&\
+    yum -y update &&\
+    yum clean all
+
+
+ENV USER user
+ENV HOME /home/$USER
+ENV REPOS /source
+
+# Replace 1001 with your user / group id
+RUN export uid=1001 && \
+    adduser --uid $uid $USER &&\
+    echo "$USER ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/$USER && \
+    chmod 0440 /etc/sudoers.d/$USER
+
+
+USER $USER
