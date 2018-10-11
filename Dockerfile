@@ -36,7 +36,7 @@ RUN echo "Installing mpich..." &&\
     ./configure 2>&1 | tee configure.log &&\
     make 2>&1 | tee make.log &&\
     make check 2>&1 | tee make_check.log &&\
-    make install 2>&1 | tee make_install.log &&\
+    sudo make install 2>&1 | tee make_install.log &&\
     cd ../
 
 
