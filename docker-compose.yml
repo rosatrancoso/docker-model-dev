@@ -13,7 +13,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.wrf-dev
-    image: rosatrancoso/wrf-dev2
+    image: rosatrancoso/wrf-dev
     depends_on:
       - base
     tty: true
