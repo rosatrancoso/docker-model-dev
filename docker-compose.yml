@@ -18,5 +18,5 @@ services:
       - base
     tty: true
     volumes:
-          - $REPOS/wrf-model/:/source/wrf-model
+          - $REPOS2/wrf-model/:/source/wrf-model
 
