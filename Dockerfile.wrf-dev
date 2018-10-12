@@ -11,6 +11,13 @@ RUN echo "Installing mpich..." &&\
     sudo make install 2>&1 | tee make_install.log &&\
     cd ../
 
+sudo yum install netcdf-devel netcdf-fortran-devel
+
+cd /source/wrf-model/wrf_hydro_nwm_public/trunk/NDHMS
+cp template/setEnvar.sh .
+
+./configure 2   # gfortran
+./compile_offline_Noah.sh setEnvar.sh
 
 
 # do this outside because too slow
