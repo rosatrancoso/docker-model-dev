@@ -1,9 +1,11 @@
 FROM centos:centos7
 
-RUN yum -y install epel-release &&\
-    yum -y install git vim sudo tar unzip wget python-pip python-devel \
-                   gcc gcc-gfortran gcc-c++ glibc-static zlib-static \
-                   man make  zlib-devel  &&\
+RUN yum -y install 	epel-release &&\
+    yum -y install 	git vim sudo tar unzip wget python-pip python-devel \
+    				man make  \
+                   gcc gcc-gfortran gcc-c++ glibc-static \
+                   zlib-static zlib-devel \
+                   netcdf-devel netcdf-fortran-devel &&\
     yum -y update &&\
     yum clean all
 
@@ -20,3 +22,15 @@ RUN export uid=1001 && \
 
 
 USER $USER
+
+RUN echo "Installing mpich..." &&\
+    cd /tmp &&\
+    wget http://www.mpich.org/static/downloads/3.2/mpich-3.2.tar.gz &&\
+    tar zxvf mpich-3.2.tar.gz &&\
+    cd mpich-3.2 &&\
+    ./configure 2>&1 | tee configure.log &&\
+    make 2>&1 | tee make.log &&\
+    make check 2>&1 | tee make_check.log &&\
+    sudo make install 2>&1 | tee make_install.log &&\
+    cd ../
+

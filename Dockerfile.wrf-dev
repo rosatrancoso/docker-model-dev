@@ -1,43 +1,42 @@
 FROM rosatrancoso/base
 
-RUN echo "Installing mpich..." &&\
-    cd /tmp &&\
-    wget http://www.mpich.org/static/downloads/3.2/mpich-3.2.tar.gz &&\
-    tar zxvf mpich-3.2.tar.gz &&\
-    cd mpich-3.2 &&\
-    ./configure 2>&1 | tee configure.log &&\
-    make 2>&1 | tee make.log &&\
-    make check 2>&1 | tee make_check.log &&\
-    sudo make install 2>&1 | tee make_install.log &&\
-    cd ../
+# RUN echo "Installing mpich..." &&\
+#     cd /tmp &&\
+#     wget http://www.mpich.org/static/downloads/3.2/mpich-3.2.tar.gz &&\
+#     tar zxvf mpich-3.2.tar.gz &&\
+#     cd mpich-3.2 &&\
+#     ./configure 2>&1 | tee configure.log &&\
+#     make 2>&1 | tee make.log &&\
+#     make check 2>&1 | tee make_check.log &&\
+#     sudo make install 2>&1 | tee make_install.log &&\
+#     cd ../
 
-sudo yum install netcdf-devel netcdf-fortran-devel
 
-cd /source/wrf-model/wrf_hydro_nwm_public/trunk/NDHMS
+docker run -ti -v $REPOS2:/source rosatrancoso/base
+
+cd /source/NCAR/wrf_hydro_nwm_public/trunk/NDHMS
+
 cp template/setEnvar.sh .
+source setEnvar.sh
 
 ./configure 2   # gfortran
 ./compile_offline_Noah.sh setEnvar.sh
 
-
+# v4.0.4
 # do this outside because too slow
-# RUN git clone --depth 1 https://github.com/wrf-model/WRF $REPOS/wrf &&\
-#     cd $REPOS/wrf &&\
+git clone --depth 1 https://github.com/wrf-model/WRF $REPOS2/wrf-model/WRF &&\
+#     cd $REPOS2/wrf-model/WRF &&\
 #     git fetch --tags &&\
 #     latesttag=$(git describe --tags `git rev-list --tags --max-count=1`)
 #     echo checking out ${latesttag}&&\
 #     git checkout -b $latesttag $latesttag
 
 
-# v5.0.2
-# RUN git clone git@github.com:NCAR/wrf_hydro_nwm_public.git $REPOS/wrf-model/wrf_hydro_nwm_public &&\
-#     cd $REPOS/wrf-model/wrf_hydro_nwm_public &&\
-#     git fetch --tags &&\
-#     latesttag=$(git describe --tags `git rev-list --tags --max-count=1`)
-#     echo checking out ${latesttag}&&\
-#     git checkout -b $latesttag $latesttag
-
-
+## manually
+# git clone git@github.com:NCAR/wrf_hydro_nwm_public.git $REPOS2/NCAR/wrf_hydro_nwm_public 
+# cd $REPOS2/NCAR/wrf_hydro_nwm_public &&\
+# git tags --list
+# git checkout -b v5.0.3 v5.0.3
 
 
 
