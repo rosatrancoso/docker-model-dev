@@ -7,7 +7,8 @@ RUN apt -y update &&\
     libmpich-dev \
     libnetcdff-dev \
     netcdf-bin \
-    make
+    make \
+    wget
 
 
 ENV REPOS="/source"
