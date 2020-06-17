@@ -12,15 +12,17 @@ FROM rosatrancoso/base
 #     cd ../
 
 
+
 docker run -ti -v $REPOS2:/source rosatrancoso/base
 
 cd /source/NCAR/wrf_hydro_nwm_public/trunk/NDHMS
 
 cp template/setEnvar.sh .
 source setEnvar.sh
+export NETCDF=`nc-config --prefix`
 
 ./configure 2   # gfortran
-./compile_offline_Noah.sh setEnvar.sh
+./compile_offline_Noah.sh setEnvar.sh 2>&1 |tee compile.log
 
 # v4.0.4
 # do this outside because too slow
