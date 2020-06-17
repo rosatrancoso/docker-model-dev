@@ -1,0 +1,38 @@
+FROM ubuntu:20.04
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt -y update &&\
+    apt install -y \
+    vim \
+    git \
+    libmpich-dev \
+    libnetcdff-dev \
+    netcdf-bin \
+    make
+
+
+ENV REPOS="/source"
+RUN mkdir $REPOS
+
+RUN echo "------- Install WRF-Hydro -----" &&\
+    cd /source &&\
+    wget https://github.com/NCAR/wrf_hydro_nwm_public/archive/v5.1.2.tar.gz &&\
+    tar -zxvf v5.1.2.tar.gz &&\
+    ln -s wrf_hydro_nwm_public-5.1.2 wrf_hydro_nwm_public &&\
+    cd wrf_hydro_nwm_public/trunk/NDHMS &&\
+    ./configure 2 &&\
+    cp -f template/setEnvar.sh setEnvar.sh &&\
+    ./compile_offline_NoahMP.sh setEnvar.sh
+
+
+
+
+
+
+
+# git clone git@github.com:NCAR/wrf_hydro_nwm_public.git $REPOS2/NCAR/wrf_hydro_nwm_public
+# cd $REPOS2/NCAR/wrf_hydro_nwm_public &&\
+# git tags --list
+# git checkout -b v5.0.3 v5.0.3
+
+# -L/usr/lib/x86_64-linux-gnu -lnetcdff -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -lnetcdf -lnetcdf -ldl -lm
+
