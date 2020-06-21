@@ -10,6 +10,17 @@ RUN apt -y update &&\
     make \
     wget
 
+# r-base +600MB
+# nco
+# Rscript -e "install.packages('optparse')"
+# Rscript -e "install.packages('ncdf4')"
+
+# [1] "ncks -O -4 -v XLAT_M,XLONG_M,HGT_M,SOILTEMP,LU_INDEX,MAPFAC_MX,MAPFAC_MY,GREENFRAC,LAI12M,SOILCTOP geo_em.d04.nc wrfinput_d01.nc"
+# [1] "ncrename -O -v HGT_M,HGT wrfinput_d01.nc wrfinput_d01.nc"
+# [1] "ncrename -O -v XLAT_M,XLAT wrfinput_d01.nc wrfinput_d01.nc"
+# [1] "ncrename -O -v XLONG_M,XLONG wrfinput_d01.nc wrfinput_d01.nc"
+# [1] "ncrename -O -v LU_INDEX,IVGTYP wrfinput_d01.nc wrfinput_d01.nc"
+# [1] "ncks -O -x -v SOILTEMP,GREENFRAC,LAI12M,SOILCTOP wrfinput_d01.nc wrfinput_d01.nc"
 
 ENV REPOS="/source"
 RUN mkdir $REPOS
@@ -23,7 +34,6 @@ RUN echo "------- Install WRF-Hydro -----" &&\
     ./configure 2 &&\
     cp -f template/setEnvar.sh setEnvar.sh &&\
     ./compile_offline_NoahMP.sh setEnvar.sh
-
 
 
 
