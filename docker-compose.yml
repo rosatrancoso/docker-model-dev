@@ -1,0 +1,13 @@
+# export UID=`id -u`; export GID=`id -g`; docker-compose up -d
+
+version: "3.8"
+
+services:
+  wrf-hydro:
+    build:
+      context: .
+      dockerfile: Dockerfile.wrf-hydro
+    tty: True
+    user: $UID:$GID
+    volumes:
+      - $PWD/tmp:/xxx
