@@ -1,0 +1,16 @@
+# hysplit.v5.0.0_Ubuntu needs GLIBC_2.29
+# ubuntu 18 only has glibc 2.27 (see ldd --version)
+
+FROM ubuntu:20.04
+#ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt -y update &&\
+    apt install -y \
+    vim \
+    libgfortran5
+
+# ENV USER=rtrancoso UID=1138611848 GID=1138600513
+# RUN echo "USER, UID, GID = $USER, $UID, $GID" &&\
+#     addgroup --gid $GID $USER
+
+# RUN useradd -m $USER -u $UID -g $GID -s /bin/bash

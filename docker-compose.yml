@@ -1,6 +1,6 @@
-# export UID=`id -u`; export GID=`id -g`; docker-compose up -d
+# export UID=`id -u`; export GID=`id -g`; docker-compose up -d hysplit
 
-version: "3.8"
+version: "3.3"
 
 services:
   wrf-hydro:
@@ -11,3 +11,12 @@ services:
     user: $UID:$GID
     volumes:
       - $PWD/tmp:/xxx
+
+  hysplit:
+    build:
+      context: .
+      dockerfile: Dockerfile.hysplit
+    tty: True
+    user: $UID:$GID:$USER
+    volumes:
+      - $HOME/hysplit:$HOME/hysplit
