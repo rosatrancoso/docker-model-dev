@@ -9,6 +9,16 @@ RUN apt -y update &&\
     vim \
     libgfortran5
 
+# to run exec/concplot.py
+apt install 
+python3
+python3-pip
+proj-bin
+libgcc-10-dev
+
+pip3 install pandas matplotlib cartopy
+
+cd 
 # ENV USER=rtrancoso UID=1138611848 GID=1138600513
 # RUN echo "USER, UID, GID = $USER, $UID, $GID" &&\
 #     addgroup --gid $GID $USER
