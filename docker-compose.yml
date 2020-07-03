@@ -1,22 +1,23 @@
-version: '2'
+# export UID=`id -u`; export GID=`id -g`; docker-compose up -d hysplit
+
+version: "3.3"
 
 services:
-
-  base:
+  wrf-hydro:
     build:
       context: .
-      dockerfile: Dockerfile.base
-    image: rosatrancoso/base
-
-
-  wrf-dev:
-    build:
-      context: .
-      dockerfile: Dockerfile.wrf-dev
-    image: rosatrancoso/wrf-dev
-    depends_on:
-      - base
-    tty: true
+      dockerfile: Dockerfile.wrf-hydro
+    tty: True
+    user: $UID:$GID
     volumes:
-          - $REPOS2/wrf-model/:/source/wrf-model
+      - $PWD/tmp:/xxx
 
+  hysplit:
+    build:
+      context: .
+      dockerfile: Dockerfile.hysplit
+    tty: True
+    user: $UID:$GID:$USER
+    volumes:
+      - $HOME/hysplit:$HOME/hysplit
+      - $HOME/Documents/MS/Hysplit:$HOME/Documents/MS/Hysplit

@@ -1,0 +1,26 @@
+# hysplit.v5.0.0_Ubuntu needs GLIBC_2.29
+# ubuntu 18 only has glibc 2.27 (see ldd --version)
+
+FROM ubuntu:20.04
+#ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt -y update &&\
+    apt install -y \
+    vim \
+    libgfortran5
+
+# to run exec/concplot.py
+apt install 
+python3
+python3-pip
+proj-bin
+libgcc-10-dev
+
+pip3 install pandas matplotlib cartopy
+
+cd 
+# ENV USER=rtrancoso UID=1138611848 GID=1138600513
+# RUN echo "USER, UID, GID = $USER, $UID, $GID" &&\
+#     addgroup --gid $GID $USER
+
+# RUN useradd -m $USER -u $UID -g $GID -s /bin/bash
