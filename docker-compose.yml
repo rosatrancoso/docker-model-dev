@@ -20,3 +20,4 @@ services:
     user: $UID:$GID:$USER
     volumes:
       - $HOME/hysplit:$HOME/hysplit
+      - $HOME/Documents/MS/Hysplit:$HOME/Documents/MS/Hysplit
