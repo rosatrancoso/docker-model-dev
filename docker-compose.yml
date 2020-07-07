@@ -19,5 +19,5 @@ services:
     tty: True
     user: $UID:$GID:$USER
     volumes:
-      - $HOME/hysplit:$HOME/hysplit
+      - $HOME/hysplit:/source/hysplit
       - $HOME/Documents/MS/Hysplit:$HOME/Documents/MS/Hysplit

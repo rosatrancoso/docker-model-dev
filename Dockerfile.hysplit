@@ -1,26 +1,38 @@
 # hysplit.v5.0.0_Ubuntu needs GLIBC_2.29
 # ubuntu 18 only has glibc 2.27 (see ldd --version)
-
 FROM ubuntu:20.04
-#ARG DEBIAN_FRONTEND=noninteractive
+LABEL maintainer="rosatrancoso@gmail.com"
 
-RUN apt -y update &&\
-    apt install -y \
+# RUN apt -y update &&\
+#     apt install -y \
+#     vim \
+#     libgfortran5
+
+RUN apt-get update && apt-get install -y \
     vim \
-    libgfortran5
+    libgfortran5 \
+&&  rm -rf /var/lib/apt/lists/*
+
+ENV SOURCE=/source
+RUN mkdir $SOURCE
+
+# COPY takes in a src and destination. It only lets you copy in a local file or directory from your host (the machine building the Docker image) into the Docker image itself.
+# ADD lets you do that too, but it also supports 2 other sources. First, you can use a URL instead of a local file / directory. Secondly, you can extract a tar file from the source directly into the destination.
+# this untars
+ADD hysplit.v5.0.0_Ubuntu.tar.gz $SOURCE
+RUN cd $SOURCE \
+&&  ln -s hysplit.v5.0.0_Ubuntu hysplit
+
 
 # to run exec/concplot.py
-apt install 
-python3
-python3-pip
-proj-bin
-libgcc-10-dev
+# apt install
+# python3
+# python3-pip
+# proj-bin
+# libgcc-10-dev
+# pip3 install pandas matplotlib cartopy
 
-pip3 install pandas matplotlib cartopy
-
-cd 
 # ENV USER=rtrancoso UID=1138611848 GID=1138600513
 # RUN echo "USER, UID, GID = $USER, $UID, $GID" &&\
 #     addgroup --gid $GID $USER
-
 # RUN useradd -m $USER -u $UID -g $GID -s /bin/bash
