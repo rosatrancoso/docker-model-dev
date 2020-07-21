@@ -16,9 +16,8 @@ RUN apt-get update && apt-get install -y \
 &&  rm -rf /var/lib/apt/lists/*
 
 # for arw2arl
-RUN cd /usr/lib/x86_64-linux-gnu && ln -s libnetcdff.so.7.0.0 libnetcdff.so.6 \
-&&  pip3 install yaml
-
+RUN cd /usr/lib/x86_64-linux-gnu \
+&&  ln -s libnetcdff.so.7.0.0 libnetcdff.so.6
 
 ENV SOURCE=/source
 RUN mkdir $SOURCE
@@ -27,6 +26,19 @@ RUN mkdir $SOURCE
 ADD hysplit.v5.0.0_Ubuntu.tar.gz $SOURCE
 RUN cd $SOURCE \
 &&  ln -s hysplit.v5.0.0_Ubuntu hysplit
+
+# hysplit_wrapper
+RUN pip3 install pyyaml numpy pandas boto3
+
+# RUN echo '---- Install hysplit_wrapper ----' \
+# &&  cd $SOURCE \
+# &&  git clone https://$GIT_TOKEN@github.com/MetServiceDev/hysplit_wrapper.git \
+# &&  cd hysplit_wrapper \
+# &&  git fetch --tags \
+# &&  latestTag=$(git describe --tags `git rev-list --tags --max-count=1`) \
+# &&  git checkout -b $latestTag $latestTag \
+# &&  pip install -r requirements.txt \
+# &&  pip3 install -e .
 
 
 # to run exec/concplot.py

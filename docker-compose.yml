@@ -12,7 +12,7 @@ services:
     volumes:
       - $PWD/tmp:/xxx
 
-  hysplit:
+  hysplit_local:
     build:
       context: .
       dockerfile: Dockerfile.hysplit
@@ -21,3 +21,14 @@ services:
     volumes:
       - $HOME/hysplit:/source/hysplit
       - $HOME/Documents/MS/Hysplit:$HOME/Documents/MS/Hysplit
+
+  hysplit_wrapper:
+    build:
+      context: .
+      dockerfile: Dockerfile.hysplit
+    tty: True
+    user: $UID:$GID:$USER
+    volumes:
+      - /tmp/hysplit:/tmp/hysplit
+      - $REPOSMS/hysplit_wrapper:/source/hysplit_wrapper
+      - $REPOSMS/config-hysplit:/source/config-hysplit
