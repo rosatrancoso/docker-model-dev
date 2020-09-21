@@ -1,0 +1,12 @@
+FROM metocean/ifort:ops-bare
+MAINTAINER Rosa Trancoso <rosa@metocean.co.nz>
+
+RUN yum -y install man zlib-devel make gcc-c++ &&\ 
+    yum clean all
+
+RUN echo "source opt/intel/bin/compilervars.sh intel64" >> /etc/bashrc
+
+ADD helloworld.f90 /tmp/
+
+USER metocean
+RUN /bin/bash --login -c "ifort /tmp/helloworld.f90 -o /tmp/helloworld"
