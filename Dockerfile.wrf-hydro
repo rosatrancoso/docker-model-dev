@@ -10,18 +10,6 @@ RUN apt -y update &&\
     make \
     wget
 
-# r-base +600MB
-# nco
-# Rscript -e "install.packages('optparse')"
-# Rscript -e "install.packages('ncdf4')"
-
-# [1] "ncks -O -4 -v XLAT_M,XLONG_M,HGT_M,SOILTEMP,LU_INDEX,MAPFAC_MX,MAPFAC_MY,GREENFRAC,LAI12M,SOILCTOP geo_em.d04.nc wrfinput_d01.nc"
-# [1] "ncrename -O -v HGT_M,HGT wrfinput_d01.nc wrfinput_d01.nc"
-# [1] "ncrename -O -v XLAT_M,XLAT wrfinput_d01.nc wrfinput_d01.nc"
-# [1] "ncrename -O -v XLONG_M,XLONG wrfinput_d01.nc wrfinput_d01.nc"
-# [1] "ncrename -O -v LU_INDEX,IVGTYP wrfinput_d01.nc wrfinput_d01.nc"
-# [1] "ncks -O -x -v SOILTEMP,GREENFRAC,LAI12M,SOILCTOP wrfinput_d01.nc wrfinput_d01.nc"
-
 ENV REPOS="/source" WRFH_VERSION="5.2.0-rc1"
 RUN mkdir $REPOS
 
@@ -31,19 +19,23 @@ RUN echo "------- Install WRF-Hydro -----" &&\
     tar -zxf v$WRFH_VERSION.tar.gz &&\
     ln -s wrf_hydro_nwm_public-$WRFH_VERSION wrf_hydro_nwm_public &&\
     cd wrf_hydro_nwm_public/trunk/NDHMS &&\
-    ./configure 2 &&\
-    cp -f template/setEnvar.sh setEnvar.sh &&\
+    ./configure 2
+
+RUN cd /source/wrf_hydro_nwm_public/trunk/NDHMS &&\
+    echo "export WRF_HYDRO=1" > setEnvar.sh &&\
+    echo "export HYDRO_D=1" >> setEnvar.sh &&\
+    echo "export SPATIAL_SOIL=1" >> setEnvar.sh &&\
+    echo "export WRF_HYDRO_RAPID=0" >> setEnvar.sh &&\
+    echo "export NCEP_WCOSS=0" >> setEnvar.sh &&\
+    echo "export NWM_META=0" >> setEnvar.sh &&\
+    echo "export WRF_HYDRO_NUDGING=0" >> setEnvar.sh &&\
+    #cp -f template/setEnvar.sh setEnvar.sh &&\
     ./compile_offline_NoahMP.sh setEnvar.sh
 
+# RUN mkdir /data/run &&\
+#     cd /data/run &&\
+#     cp $REPOS/wrf_hydro_nwm_public/trunk/NDHMS/Run/*.TBL . &&\
+#     cp $REPOS/wrf_hydro_nwm_public/trunk/NDHMS/Run/*.TBL . &&\
+#     cp $REPOS/wrf_hydro_nwm_public/trunk/NDHMS/Run/wrf_hydro.exe .
 
-
-
-
-
-# git clone git@github.com:NCAR/wrf_hydro_nwm_public.git $REPOS2/NCAR/wrf_hydro_nwm_public
-# cd $REPOS2/NCAR/wrf_hydro_nwm_public &&\
-# git tags --list
-# git checkout -b v5.0.3 v5.0.3
-
-# -L/usr/lib/x86_64-linux-gnu -lnetcdff -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -lnetcdf -lnetcdf -ldl -lm
-
+# cp /source/wrf_hydro_nwm_public/trunk/NDHMS/Run/namelist.hrldase
