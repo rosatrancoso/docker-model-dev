@@ -1,4 +1,4 @@
-# export UID=`id -u`; export GID=`id -g`; docker-compose up -d hysplit
+# export UID=`id -u`; export GID=`id -g`; docker-compose up -d wrf-hydro
 
 version: "3.3"
 

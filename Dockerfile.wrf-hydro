@@ -22,14 +22,14 @@ RUN apt -y update &&\
 # [1] "ncrename -O -v LU_INDEX,IVGTYP wrfinput_d01.nc wrfinput_d01.nc"
 # [1] "ncks -O -x -v SOILTEMP,GREENFRAC,LAI12M,SOILCTOP wrfinput_d01.nc wrfinput_d01.nc"
 
-ENV REPOS="/source"
+ENV REPOS="/source" WRFH_VERSION="5.2.0-rc1"
 RUN mkdir $REPOS
 
 RUN echo "------- Install WRF-Hydro -----" &&\
     cd /source &&\
-    wget https://github.com/NCAR/wrf_hydro_nwm_public/archive/v5.1.2.tar.gz &&\
-    tar -zxvf v5.1.2.tar.gz &&\
-    ln -s wrf_hydro_nwm_public-5.1.2 wrf_hydro_nwm_public &&\
+    wget -q https://github.com/NCAR/wrf_hydro_nwm_public/archive/v$WRFH_VERSION.tar.gz &&\
+    tar -zxf v$WRFH_VERSION.tar.gz &&\
+    ln -s wrf_hydro_nwm_public-$WRFH_VERSION wrf_hydro_nwm_public &&\
     cd wrf_hydro_nwm_public/trunk/NDHMS &&\
     ./configure 2 &&\
     cp -f template/setEnvar.sh setEnvar.sh &&\
