@@ -10,7 +10,7 @@ services:
     tty: True
     user: $UID:$GID
     volumes:
-      - $PWD/tmp:/xxx
+      - $PWD/test_cases:/data/test_cases
 
   hysplit_local:
     build:

@@ -24,7 +24,7 @@ RUN echo "------- Install WRF-Hydro -----" &&\
 RUN cd /source/wrf_hydro_nwm_public/trunk/NDHMS &&\
     echo "export WRF_HYDRO=1" > setEnvar.sh &&\
     echo "export HYDRO_D=1" >> setEnvar.sh &&\
-    echo "export SPATIAL_SOIL=1" >> setEnvar.sh &&\
+    echo "export SPATIAL_SOIL=0" >> setEnvar.sh &&\
     echo "export WRF_HYDRO_RAPID=0" >> setEnvar.sh &&\
     echo "export NCEP_WCOSS=0" >> setEnvar.sh &&\
     echo "export NWM_META=0" >> setEnvar.sh &&\
@@ -34,8 +34,23 @@ RUN cd /source/wrf_hydro_nwm_public/trunk/NDHMS &&\
 
 # RUN mkdir /data/run &&\
 #     cd /data/run &&\
-#     cp $REPOS/wrf_hydro_nwm_public/trunk/NDHMS/Run/*.TBL . &&\
-#     cp $REPOS/wrf_hydro_nwm_public/trunk/NDHMS/Run/*.TBL . &&\
-#     cp $REPOS/wrf_hydro_nwm_public/trunk/NDHMS/Run/wrf_hydro.exe .
 
-# cp /source/wrf_hydro_nwm_public/trunk/NDHMS/Run/namelist.hrldase
+#      mkdir run_gridded_no_lakes
+#      cd run_gridded_no_lakes
+#      cp $REPOS/wrf_hydro_nwm_public/trunk/NDHMS/Run/*.TBL . &&\
+#      cp $REPOS/wrf_hydro_nwm_public/trunk/NDHMS/Run/wrf_hydro.exe .
+#      cp $REPOS/wrf_hydro_nwm_public/trunk/NDHMS/Run/*namelist*
+
+#      mkdir DOMAIN
+#      cd DOMAIN
+#      unzip ../../../gis/output_Reporoa/Reporoa.zip -d .
+#      ln -s ../../../taur0p5kmN_v2/geo_em.d04.nc .
+#      ln -s ../../../taur0p5kmN_v2/wrfinput_d04 .
+
+#      ln -s ../FORCING/
+
+# mpirun -np 2 ./wrf_hydro.exe >> run.log 2>&1
+
+# # cp /source/wrf_hydro_nwm_public/trunk/NDHMS/Run/namelist.hrldase
+# docker exec -ti --user $(id -u):$(id -g) agritech_wrf-hydro_1 bash
+
