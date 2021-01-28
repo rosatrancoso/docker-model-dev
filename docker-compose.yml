@@ -1,12 +1,13 @@
-# export UID=`id -u`; export GID=`id -g`; docker-compose up -d wrf-hydro
+# export UID=`id -u`; export GID=`id -g`; docker-compose up -d wrfhydro_v5.2.0-rc1_noahmp_spatial_soil0
 
 version: "3.3"
 
 services:
-  wrf-hydro:
+
+  wrfhydro_v5.2.0-rc1_noahmp_spatial_soil0:
     build:
       context: .
-      dockerfile: Dockerfile.wrf-hydro
+      dockerfile: Dockerfile.wrfhydro_v5.2.0-rc1_NoahMP_SPATIAL_SOIL0
     tty: True
     user: $UID:$GID
     volumes:
