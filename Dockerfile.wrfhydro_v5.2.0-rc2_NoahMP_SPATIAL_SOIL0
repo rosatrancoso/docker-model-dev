@@ -10,7 +10,7 @@ RUN apt -y update &&\
     make \
     wget
 
-ENV REPOS="/source" WRFH_VERSION="5.2.0-rc1"
+ENV REPOS="/source" WRFH_VERSION="5.2.0-rc2"
 RUN mkdir $REPOS
 
 RUN echo "------- Install WRF-Hydro -----" &&\
