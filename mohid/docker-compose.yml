@@ -5,12 +5,13 @@ version: "3.3"
 services:
 
   mohid:
-    build:
-      context: .
-      dockerfile: Dockerfile
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+    image: mohid
     tty: True
     user: $UID:$GID:$USER
     volumes:
-      - $MYREPOS/Mohid:/source/mohid
+      - $MYREPOS/Mohid:/source/Mohid
       - $HOME/scratch/wrf2hdf5:/tmp/wrf2hdf5
 
