@@ -1,0 +1,15 @@
+# export UID=`id -u`; export GID=`id -g`; docker-compose up -d hysplit
+
+version: "3.3"
+
+services:
+
+  hysplit:
+    build:
+      context: .
+      dockerfile: Dockerfile.hysplit
+    tty: True
+    user: $UID:$GID:$USER
+    volumes:
+      - $HOME/hysplit:/source/hysplit
+      - $HOME/Documents/MS/Hysplit:$HOME/Documents/MS/Hysplit

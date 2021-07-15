@@ -1,0 +1,49 @@
+# export UID=`id -u`; export GID=`id -g`; docker-compose up -d wrfhydro_v5.2.0-rc2_noahmp_spatial_soil0
+
+version: "3.3"
+
+services:
+
+  wrfhydro_v5.2.0-rc2_noahmp_spatial_soil0:
+    build:
+      context: .
+      dockerfile: Dockerfile.wrfhydro_v5.2.0-rc2_NoahMP_SPATIAL_SOIL0
+    tty: True
+    user: $UID:$GID
+    volumes:
+      - $PWD/test_cases:/data/test_cases
+      - $HOME/Documents/MS/git/wrfhydro_tools:/data/wrfhydro_tools
+
+  wrfhydro_v5.2.0-rc2_noahmp_spatial_soil1:
+    build:
+      context: .
+      dockerfile: Dockerfile.wrfhydro_v5.2.0-rc2_NoahMP_SPATIAL_SOIL1
+    tty: True
+    user: $UID:$GID
+    volumes:
+      - $PWD/test_cases:/data/test_cases
+      - $HOME/Documents/MS/git/wrfhydro_tools:/data/wrfhydro_tools
+
+
+
+  wrfhydro_training:
+    image: wrfhydro/training:v5.2.0-rc1
+    ports:
+      - 8888:8888
+    tty: true
+    #volumes:
+    #- $PWD/test_cases:/home/docker/test_cases
+
+
+  wrfhydro_training2:
+    image: wrfhydro/training:v5.2.0-rc1
+    user: root
+    ports:
+      - 8886:8888
+    tty: true
+    volumes:
+      - $PWD/test_cases:/home/docker/test_cases
+    environment:
+     - JUPYTER_ENABLE_LAB=yes
+     - NB_UID=$UID #$(id -u)
+     - NB_GID=$GID #(id -g)

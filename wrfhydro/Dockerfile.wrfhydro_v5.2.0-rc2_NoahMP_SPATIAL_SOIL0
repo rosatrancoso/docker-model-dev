@@ -54,3 +54,6 @@ RUN cd /source/wrf_hydro_nwm_public/trunk/NDHMS &&\
 # # cp /source/wrf_hydro_nwm_public/trunk/NDHMS/Run/namelist.hrldase
 # docker exec -ti --user $(id -u):$(id -g) agritech_wrf-hydro_1 bash
 
+#https://ral.ucar.edu/sites/default/files/public/create_wrfinput.zip
+#https://ral.ucar.edu/sites/default/files/public/create_soilproperties.zip
+
