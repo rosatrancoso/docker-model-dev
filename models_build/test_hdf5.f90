@@ -1,18 +1,12 @@
-program test_libs
+program test_hdf5
 
-    use netcdf
     use hdf5
     implicit none
     integer :: a
     character(10) :: aux
 
-    character(60)               :: FileName
-    integer(HID_T)                 :: FileID, STAT_CALL        
-
-
-    a = 100
-    print*, 'ola', a
-    print*, nf90_inq_libvers()
+    character(60)   :: FileName
+    integer(HID_T)  :: FileID, STAT_CALL        
 
     CALL h5open_f(a)
     print*, a
@@ -23,4 +17,4 @@ program test_libs
                     FILE_ID = FileID,               &
                     HDFERR = STAT_CALL)
 
-end program test_libs
+end program test_hdf5

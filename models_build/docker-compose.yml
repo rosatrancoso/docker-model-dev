@@ -1,0 +1,17 @@
+# export UID=`id -u`; export GID=`id -g`; docker-compose up -d
+
+version: "3.3"
+
+services:
+
+  gfortran:
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.gfortran
+    image: models_build_gfortran
+    tty: True
+#    user: $UID:$GID:$USER
+    volumes:
+      - $MYREPOS/docker-model-dev:/source/docker-model-dev
+    working_dir: /source/docker-model-dev      
+

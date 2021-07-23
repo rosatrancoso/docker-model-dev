@@ -1,3 +1,4 @@
+!ifort test_libs.f90 -L/usr/local/lib -lnetcdff -lnetcdf -lhdf5_hl -lhdf5 -lm -lz -lhdf5_fortran
 program test_libs
 
     use netcdf
@@ -6,7 +7,7 @@ program test_libs
     integer :: a
     character(10) :: aux
 
-    character(60)               :: FileName
+    character(*), parameter               :: FileName
     integer(HID_T)                 :: FileID, STAT_CALL        
 
 
