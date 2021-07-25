@@ -13,4 +13,3 @@ COPY takes in a src and destination. It only lets you copy in a local file or di
 
 ADD lets you do that too, but it also supports 2 other sources. First, you can use a URL instead of a local file / directory. Secondly, you can extract a tar file from the source directly into the destination.
 
-
