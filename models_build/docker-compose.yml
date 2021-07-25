@@ -5,13 +5,14 @@ version: "3.3"
 services:
 
   gfortran:
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile.gfortran
-    image: models_build_gfortran
+    build:
+      context: .
+      dockerfile: Dockerfile.gfortran
+#    image: models_build_gfortran
     tty: True
 #    user: $UID:$GID:$USER
     volumes:
       - $MYREPOS/docker-model-dev:/source/docker-model-dev
-    working_dir: /source/docker-model-dev      
+      - $MYREPOS/mohid:/source/mohid
+    working_dir: /source/mohid/Solutions/mohid-in-linux/src/Mohid_Base_1/src
 

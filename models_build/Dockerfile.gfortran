@@ -6,20 +6,75 @@ RUN apt-get update && apt-get install -y \
     make wget \
     gcc g++ gfortran
 
-RUN echo "Installing hdf5 1.8..." &&\
-    cd /tmp &&\
-    wget https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-1.8.17/src/hdf5-1.8.17.tar.gz &&\
-    tar zxvf hdf5-1.8.17.tar.gz &&\
-    cd hdf5-1.8.17 &&\
-    ./configure --prefix=/usr/local --enable-fortran --enable-cxx --enable-hl --disable-dap --disable-shared &&\
-    make &&\
-    make install
+RUN apt-get install -y \
+    # ZLIB library
+    zlib1g-dev \
+    # SZIP library
+    libsz2 \
+    # HDF5 all of it
+    libhdf5-dev \
+    libnetcdff-dev
+
+RUN h5fc -show &&\
+    nc-config --all
+
+# RUN gfortran test_hdf5.f90 -o test_hdf5.exe \
+#     -I/usr/include/hdf5/serial/ \
+#     -L/usr/lib/x86_64-linux-gnu/ -L/usr/lib/x86_64-linux-gnu/hdf5/serial/ \
+#     -lhdf5hl_fortran -lhdf5_fortran -lhdf5_hl -lhdf5 -lpthread -lm -lz -lsz &&\
+#     ./test_hdf5.exe
+
+# RUN wget https://support.hdfgroup.org/ftp/HDF5/examples/examples-by-api/hdf5-examples/1_8/FORTRAN/H5D/h5ex_d_rdwr.f90 &&\
+#     gfortran h5ex_d_rdwr.f90 -o h5ex_d_rdwr.exe \
+#     -I/usr/include/hdf5/serial/ \
+#     -L/usr/lib/x86_64-linux-gnu/ -L/usr/lib/x86_64-linux-gnu/hdf5/serial/ \
+#     -lhdf5hl_fortran -lhdf5_fortran -lhdf5_hl -lhdf5 -lpthread -lm -lz -lsz &&\
+#     ./h5ex_d_rdwr.exe
 
 
-gfortran test_hdf5.f90 -o test_hdf5.exe \
--I/usr/local/include \
--L/usr/local/lib \
--lhdf5_hl -lhdf5 -lpthread -lm -lz -lhdf5_fortran
+# RUN gfortran test_libs.f90 -o test_libs.exe \
+#     -I/usr/include/ -I/usr/include/hdf5/serial/ \
+#     -L/usr/lib/x86_64-linux-gnu/ -L/usr/lib/x86_64-linux-gnu/hdf5/serial/ \
+#     -lnetcdff -lhdf5hl_fortran -lhdf5_fortran -lhdf5_hl -lhdf5 -lpthread -lm -lz -lsz &&\
+#     ./test_libs.exe
+
+
+
+
+
+# HDF5 Libraries
+# Following are the libraries included with HDF5. Whether you are using the Unix compile scripts or Makefiles, or are compiling on Windows, these libraries are or may need to be specified. The order they are specified is important:
+
+#     libhdf5_hl_cpp.a    - HDF5 High Level C++ APIs
+#     libhdf5_cpp.a       - HDF5 C++ Library
+#     libhdf5hl_fortran.a - HDF5 High Level Fortran APIs
+#     libhdf5_fortran.a   - HDF5 Fortran Library
+#     libhdf5_hl.a        - HDF5 High Level C APIs
+#     libhdf5.a           - HDF5 C Library
+# The -show option for h5cc, hc++ and h5fc will display the libraries in the correct order.
+
+# External Libraries:
+
+#     libsz.a             - SZIP Compression Library
+#     libz.a              - ZLIB or DEFLATE Compression Library
+#     (any other system libraries, such as -lrt -lm ...)
+
+
+
+# RUN echo "Installing hdf5 1.8..." &&\
+#     cd /tmp &&\
+#     wget https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-1.8.17/src/hdf5-1.8.17.tar.gz &&\
+#     tar zxvf hdf5-1.8.17.tar.gz &&\
+#     cd hdf5-1.8.17 &&\
+#     ./configure --prefix=/usr/local --enable-fortran --enable-cxx --enable-hl &&\
+#     make &&\
+#     make install
+
+
+# gfortran test_hdf5.f90 -o test_hdf5.exe \
+# -I/usr/local/include \
+# -L/usr/local/lib \
+# -lhdf5_hl -lhdf5 -lpthread -lm -lz -lhdf5_fortran
 
 
 

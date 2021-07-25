@@ -7,7 +7,8 @@ program test_libs
     character(10) :: aux
 
     character(60)               :: FileName
-    integer(HID_T)                 :: FileID, STAT_CALL        
+    integer(HID_T)              :: FileID
+    integer :: STAT_CALL
 
 
     a = 100
