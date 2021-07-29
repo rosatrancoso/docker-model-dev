@@ -13,6 +13,6 @@ services:
 #    user: $UID:$GID:$USER
     volumes:
       - $MYREPOS/docker-model-dev:/source/docker-model-dev
-      - $MYREPOS/mohid:/source/mohid
-    working_dir: /source/mohid/Solutions/mohid-in-linux/src/Mohid_Base_1/src
+      - $MYREPOS/Mohid:/source/Mohid
+    working_dir: /source/Mohid/Solutions/mohid-in-linux/src/Mohid_Base_1/src
 
