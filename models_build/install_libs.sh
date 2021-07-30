@@ -36,6 +36,12 @@ cd ../
 ## netcdf4, static, no dap, no parallel ##
 ##########################################
 
+cd libs
+https://www.unidata.ucar.edu/downloads/netcdf/ftp/netcdf-c-4.8.0.tar.gz
+https://www.unidata.ucar.edu/downloads/netcdf/ftp/netcdf-fortran-4.5.3.tar.gz
+
+
+
 echo "Installing netcdf4..."
 wget ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-4.1.3.tar.gz
 tar zxvf netcdf-4.1.3.tar.gz

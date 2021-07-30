@@ -36,7 +36,30 @@ RUN echo "Installing hdf5..." &&\
 
 RUN h5fc -show
 
-RUN apt-get install libproj-dev
+RUN apt-get install -y libproj-dev
+
+RUN apt-get install -y m4
+
+RUN echo "Installing netcdf-c..." &&\
+    cd /tmp/libs &&\
+    tar -zxf netcdf-c-4.8.0.tar.gz &&\
+    cd netcdf-c-4.8.0 &&\
+    ./configure 2>&1 | tee configure.log &&\
+    make 2>&1 | tee make.log &&\
+    #make check 2>&1 | tee make_check.log &&\
+    make install 2>&1 | tee make_install.log
+
+
+ENV LDFLAGS="-L/usr/local/lib"  CPPFLAGS="-I/usr/local/include"
+
+RUN echo "Installing netcdf-fortran..." &&\
+    cd /tmp/libs &&\
+    tar -zxf netcdf-fortran-4.5.3.tar.gz &&\
+    cd netcdf-fortran-4.5.3 &&\
+    ./configure 2>&1 | tee configure.log &&\
+    make 2>&1 | tee make.log &&\
+    #make check 2>&1 | tee make_check.log &&\
+    make install 2>&1 | tee make_install.log
 
 
 # cd /Documents/mygit/Mohid/ExternalLibs/Proj4

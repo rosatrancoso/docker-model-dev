@@ -50,3 +50,12 @@ hdf5_gfortran10_manual_libs:
     /usr/local/lib/libhdf5.a \
     -lz -ldl -lm -Wl,-rpath -Wl,/usr/local/lib
 
+netcdf_gfortran10_manual_libs:
+	rm -f netcdf_gfortran10_manual_libs.exe test_netcdf.hdf5
+	gfortran \
+    test_netcdf.f90 -o netcdf_gfortran10_manual_libs.exe \
+    -w -fallow-argument-mismatch -O2 \
+    -I/usr/local/include -L/usr/local/lib \
+    /usr/local/lib/libnetcdf.a \
+    /usr/local/lib/libnetcdff.a \
+
