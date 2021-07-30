@@ -1,14 +1,32 @@
 
+mkdir /tmp/libs
+
+
 #######################################
 ## hdf5, static, no dap, no parallel ##
 #######################################
+
 
 echo "Installing hdf5..."
 #wget http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.17.tar.gz
 wget https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-1.8.17/src/hdf5-1.8.17.tar.gz
 tar zxvf hdf5-1.8.17.tar.gz
 cd hdf5-1.8.17
-./configure --prefix=/usr/local --enable-fortran --enable-cxx --enable-hl --disable-dap --disable-shared 2>&1 | tee configure.log
+
+cd /tmp/libs
+wget https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-1.8.22/src/hdf5-1.8.22.tar.gz
+tar -zxvf hdf5-1.8.22.tar.gz
+cd hdf5-1.8.22
+
+export FCFLAGS="-w -fallow-argument-mismatch -O2"
+export FFLAGS="-w -fallow-argument-mismatch -O2"
+
+
+  --with-szlib=DIR        Use szlib library for external szlib I/O filter
+                          [default=no]
+
+
+./configure --prefix=/usr/local --enable-fortran --enable-fortran2003 --enable-cxx --enable-hl 2>&1 | tee configure.log
 make 2>&1 | tee make.log
 #make check 2>&1 | tee make_check.log
 make install 2>&1 | tee make_install.log

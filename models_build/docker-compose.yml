@@ -1,18 +1,77 @@
-# export UID=`id -u`; export GID=`id -g`; docker-compose up -d
+# export UID=`id -u`; export GID=`id -g`; docker-compose up -d ubuntu20_gfortran10_manual_libs
 
 version: "3.3"
 
 services:
 
-  gfortran:
-    build:
-      context: .
-      dockerfile: Dockerfile.gfortran
-#    image: models_build_gfortran
+  ubuntu20_gfortran10_manual_libs:
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.ubuntu20_gfortran10_manual_libs
+    image: models_build_ubuntu20_gfortran10_manual_libs
     tty: True
-#    user: $UID:$GID:$USER
+    user: $UID:$GID:$USER
     volumes:
       - $MYREPOS/docker-model-dev:/source/docker-model-dev
       - $MYREPOS/Mohid:/source/Mohid
-    working_dir: /source/Mohid/Solutions/mohid-in-linux/src/Mohid_Base_1/src
+    working_dir: /source/docker-model-dev/models_build/
 
+  intel:
+    image: 557762406065.dkr.ecr.us-west-2.amazonaws.com/research/intel:0.3
+    mac_address: "02:42:ac:11:00:02"
+    tty: True
+    user: $UID:$GID:$USER
+    volumes:
+      - $MYREPOS/docker-model-dev:/source/docker-model-dev
+      - $MYREPOS/Mohid:/source/Mohid
+    working_dir: /source/docker-model-dev/models_build/
+
+# source /miniconda/bin/activate intel
+# - (docker run --rm --mac-address="02:42:ac:11:00:02"
+#         -v $SRC_DIR:$SRC_DIR
+#         -v $PREFIX:$PREFIX
+#         -v $RECIPE_DIR:$RECIPE_DIR
+#         -e SRC_DIR=$SRC_DIR
+#         -e PREFIX=$PREFIX
+#         -e RECIPE_DIR=$RECIPE_DIR/recipe
+#         -u $(id -u):$(id -g)
+#         -w /tmp
+#         557762406065.dkr.ecr.us-west-2.amazonaws.com/research/intel:0.3
+#         /bin/bash -c
+#         'source /miniconda/bin/activate intel;
+#         /bin/bash $RECIPE_DIR/compile.sh')
+
+  ubuntu20_gfortran10:
+    build:
+      context: .
+      dockerfile: Dockerfile.ubuntu20_gfortran10
+#    image: models_build_gfortran
+    tty: True
+    user: $UID:$GID:$USER
+    volumes:
+      - $MYREPOS/docker-model-dev:/source/docker-model-dev
+      - $MYREPOS/Mohid:/source/Mohid
+    working_dir: /source/docker-model-dev/models_build
+  ubuntu20_gfortran9:
+    build:
+      context: .
+      dockerfile: Dockerfile.ubuntu20_gfortran9
+#    image: models_build_gfortran
+    tty: True
+    user: $UID:$GID:$USER
+    volumes:
+      - $MYREPOS/docker-model-dev:/source/docker-model-dev
+      - $MYREPOS/Mohid:/source/Mohid
+    working_dir: /source/docker-model-dev/models_build
+
+  ubuntu18_gfortran7:
+    build:
+      context: .
+      dockerfile: Dockerfile.ubuntu18_gfortran7
+#    image: models_build_gfortran
+    tty: True
+    user: $UID:$GID:$USER
+    volumes:
+      - $MYREPOS/docker-model-dev:/source/docker-model-dev
+      - $MYREPOS/Mohid:/source/Mohid
+    working_dir: /source/docker-model-dev/models_build
