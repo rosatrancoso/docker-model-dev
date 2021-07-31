@@ -56,6 +56,17 @@ netcdf_gfortran10_manual_libs:
     test_netcdf.f90 -o netcdf_gfortran10_manual_libs.exe \
     -w -fallow-argument-mismatch -O2 \
     -I/usr/local/include -L/usr/local/lib \
-    /usr/local/lib/libnetcdf.a \
     /usr/local/lib/libnetcdff.a \
+    /usr/local/lib/libnetcdf.a \
+    /usr/local/lib/libhdf5_hl.a \
+    /usr/local/lib/libhdf5.a \
+    -lm -ldl -lz -lcurl
+
+netcdf_gfortran10_manual_libs2:
+	rm -f netcdf_gfortran10_manual_libs2.exe
+	gfortran \
+    test_netcdf.f90 -o netcdf_gfortran10_manual_libs2.exe \
+    -w -fallow-argument-mismatch -O2 \
+    -I/usr/local/include -L/usr/local/lib \
+    -lnetcdf -lnetcdff
 
