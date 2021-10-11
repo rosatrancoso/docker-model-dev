@@ -61,6 +61,26 @@ RUN echo "Installing netcdf-fortran..." &&\
     #make check 2>&1 | tee make_check.log &&\
     make install 2>&1 | tee make_install.log
 
+RUN apt-get install -y cmake
+
+RUN echo "Installing proj-fortran..." &&\
+    cd /tmp/libs &&\
+    tar -zxf fortran-proj-v1.0.1.tar.gz &&\
+    cd fortran-proj-v1.0.1/ &&\
+    mkdir build && cd build &&\
+    cmake .. &&\
+    make &&\ 
+    make install &&\
+
+
+cmake -DCMAKE_INCLUDE_PATH=/native/proj/path/include/\
+         -DCMAKE_LIBRARY_PATH=/native/proj/path/lib/\
+         -DCMAKE_INSTALL_PREFIX=/fproj/install/path ..
+
+    ./configure 2>&1 | tee configure.log &&\
+    make 2>&1 | tee make.log &&\
+    #make check 2>&1 | tee make_check.log &&\
+    make install 2>&1 | tee make_install.log
 
 # cd /Documents/mygit/Mohid/ExternalLibs/Proj4
 # tar -zxvf libfproj4_nix_static.tar.gz
