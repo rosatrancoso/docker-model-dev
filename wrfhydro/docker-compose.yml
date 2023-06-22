@@ -12,8 +12,8 @@ services:
     tty: True
     user: $UID:$GID
     volumes:
-      - $PWD/test_cases:/data/test_cases
-      - $HOME/Documents/MS/git/wrfhydro_tools:/data/wrfhydro_tools
+      - $HOME/scratch/test_cases:/data/test_cases
+      - $REPOSMS/wrfhydro_tools:/data/wrfhydro_tools
 
   wrfhydro_v5.2.0-rc2_noahmp_spatial_soil1:
     build:
@@ -22,15 +22,16 @@ services:
     tty: True
     user: $UID:$GID
     volumes:
-      - $PWD/test_cases:/data/test_cases
-      - $HOME/Documents/MS/git/wrfhydro_tools:/data/wrfhydro_tools
+      - $HOME/scratch/test_cases:/data/test_cases
+      - $REPOSMS/wrfhydro_tools:/data/wrfhydro_tools
 
 
-# no daemon!
+# no daemon here 
 # export UID=`id -u`; export GID=`id -g`; docker compose up wrfhydro_training
 
 # Error retrieving test case so copy manually 
 # cp /mnt/c/Users/rtrancoso/Downloads/croton_NY_training_example_v5.2.tar.gz ~/scratch/test_cases/
+# change paths in lesson 2
 
 
   wrfhydro_training:
@@ -40,16 +41,6 @@ services:
     tty: true
     volumes:
       - $HOME/scratch/test_cases:/home/docker/test_cases
-
-
-  wrfhydro_training2:
-    image: wrfhydro/training:v5.2.0-rc1
-    user: root
-    ports:
-      - 8888:8888
-    tty: true
-    volumes:
-      - $HOME/scratch/wrfhydro/example_case:/home/docker/example_case
     environment:
      - JUPYTER_ENABLE_LAB=yes
      - NB_UID=$UID #$(id -u)
