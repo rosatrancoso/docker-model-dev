@@ -40,7 +40,7 @@ services:
       - 8888:8888
     tty: true
     volumes:
-      - $HOME/scratch/test_cases:/home/docker/test_cases
+      - $HOME/scratch:/home/docker/scratch
     environment:
      - JUPYTER_ENABLE_LAB=yes
      - NB_UID=$UID #$(id -u)
