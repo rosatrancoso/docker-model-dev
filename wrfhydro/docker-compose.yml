@@ -5,6 +5,21 @@ version: "3.3"
 
 services:
 
+  mywrfhydro:
+    image: docker-scipy-notebook_scipy_gis
+    tty: true
+    user: root
+    ports:
+      - 8888:8888
+    volumes:
+      - $HOME/scratch:/home/jovyan/scratch
+      - $REPOS/NCAR:/home/jovyan/NCAR
+    environment:
+     - JUPYTER_ENABLE_LAB=yes
+     - NB_UID=$UID
+     - NB_GID=$GID
+
+
   wrfhydro_v5.2.0-rc2_noahmp_spatial_soil0:
     build:
       context: .
@@ -36,12 +51,14 @@ services:
 
   wrfhydro_training:
     image: wrfhydro/training:v5.2.0-rc1
+    tty: true
+    user: root
     ports:
       - 8888:8888
-    tty: true
     volumes:
       - $HOME/scratch:/home/docker/scratch
     environment:
      - JUPYTER_ENABLE_LAB=yes
-     - NB_UID=$UID #$(id -u)
-     - NB_GID=$GID #(id -g)
+     - NB_UID=$UID
+     - NB_GID=$GID
+
