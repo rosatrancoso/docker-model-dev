@@ -12,6 +12,7 @@ RUN mamba install -c conda-forge -y \
     geopandas \
     ipyleaflet \
     netcdf4 \
+    nco \
     rasterio \
     xarray \
     whitebox

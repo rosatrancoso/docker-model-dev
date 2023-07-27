@@ -1,4 +1,4 @@
-# export UID=`id -u`; export GID=`id -g`; docker compose up -d wrfhydro_v5.2.0-rc2_noahmp_spatial_soil0
+# export UID=`id -u`; export GID=`id -g`; docker compose up -d mywrfhydro
 
 
 version: "3.3"
@@ -19,26 +19,21 @@ services:
      - NB_UID=$UID
      - NB_GID=$GID
 
-
-  wrfhydro_v5.2.0-rc2_noahmp_spatial_soil0:
+  mywrfhydro1:
     build:
       context: .
-      dockerfile: Dockerfile.wrfhydro_v5.2.0-rc2_NoahMP_SPATIAL_SOIL0
-    tty: True
-    user: $UID:$GID
+      dockerfile: Dockerfile
+    tty: true
+    user: root
+    ports:
+      - 8889:8888
     volumes:
-      - $HOME/scratch/test_cases:/data/test_cases
-      - $REPOSMS/wrfhydro_tools:/data/wrfhydro_tools
-
-  wrfhydro_v5.2.0-rc2_noahmp_spatial_soil1:
-    build:
-      context: .
-      dockerfile: Dockerfile.wrfhydro_v5.2.0-rc2_NoahMP_SPATIAL_SOIL1
-    tty: True
-    user: $UID:$GID
-    volumes:
-      - $HOME/scratch/test_cases:/data/test_cases
-      - $REPOSMS/wrfhydro_tools:/data/wrfhydro_tools
+      - $HOME/scratch:/home/jovyan/scratch
+      - $REPOS/NCAR:/home/jovyan/NCAR
+    environment:
+     - JUPYTER_ENABLE_LAB=yes
+     - NB_UID=$UID
+     - NB_GID=$GID
 
 
 # no daemon here 
@@ -48,7 +43,7 @@ services:
 # cp /mnt/c/Users/rtrancoso/Downloads/croton_NY_training_example_v5.2.tar.gz ~/scratch/test_cases/
 # change paths in lesson 2
 
-
+  # doesnt work on SBH desktop and has old version of the model
   wrfhydro_training:
     image: wrfhydro/training:v5.2.0-rc1
     tty: true
