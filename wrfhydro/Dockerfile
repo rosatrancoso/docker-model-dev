@@ -29,9 +29,10 @@ RUN SITE_PACKAGES=`python -c 'import site; print(site.getsitepackages()[0])'` &&
 
 # things to compile WRF-HYDRO
 
+USER root
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt -y update &&\
-    apt install -y \
+RUN apt -y update
+RUN apt install -y \
     vim \
     libmpich-dev \
     libnetcdff-dev \
@@ -41,4 +42,8 @@ RUN apt -y update &&\
 ENV NETCDF_INC=/usr/include
 ENV NETCDF_LIB=/usr/lib/x86_64-linux-gnu/
 
+ADD jupyter_functions.py /source/jupyter_functions.py
+
+
+#https://github.com/NCAR/WrfHydroForcing/archive/refs/tags/v3.0-beta4.zip
 
