@@ -5,7 +5,8 @@ Functions used to run the Open Source GIS Pre-processing training Jupyter Notebo
 import os
 import matplotlib
 import rasterio
-import gdal
+from osgeo import gdal
+from base64 import b64encode
 
 from ipyleaflet import Map, GeoJSON, ScaleControl, FullScreenControl, basemaps, SplitMapControl, basemap_to_tiles, LayersControl, ImageOverlay
 from matplotlib import pyplot
@@ -81,9 +82,16 @@ def show_raster_map(raster_path, map_id, shp, out_folder):
 
     # Overlay image on map
     map_name = new_file_name.replace(".png", "")
-    image = ImageOverlay(
-        url=f'files/GIS_Training/Outputs/Raster_Outputs_Prj/{new_file_name}',
-        bounds=bounds, name=map_name)
+    with open(os.path.join(raster_outputs_prj, new_file_name), "rb") as f:
+        data = b64encode(f.read())
+        data = data.decode("ascii")
+        imgurl = "data:image/png;base64," + data
+    
+    image = ImageOverlay(url=imgurl, bounds=bounds, name=map_name)
+
+    #image = ImageOverlay(
+    #    url=f'files/GIS_Training/Outputs/Raster_Outputs_Prj/{new_file_name}',
+    #    bounds=bounds, name=map_name)
 
     map_id.add_layer(image)
     pyplot.close()
