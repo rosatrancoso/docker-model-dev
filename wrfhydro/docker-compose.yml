@@ -1,5 +1,5 @@
 # export UID=`id -u`; export GID=`id -g`; docker compose up -d mywrfhydro
-
+# docker-compose build --progress plain --no-cache mywrfhydro1 2>&1  |tee log
 
 version: "3.3"
 
