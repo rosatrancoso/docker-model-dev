@@ -15,8 +15,16 @@ RUN mamba install -c conda-forge -y \
     nco \
     rasterio \
     xarray \
-    whitebox
+    whitebox 
 
+# WHydro Forcing
+RUN mamba install -c conda-forge -y \
+    hvplot \
+    geoviews \
+    esmpy
+#install_requires=['netCDF4', 'numpy', 'ESMPy', 'mpi4py']
+
+ENV ESMFMKFILE=/opt/conda/lib/esmf.mk
 
 # ------------------------
 # WhiteBox fix for NB_UID
@@ -27,7 +35,15 @@ RUN SITE_PACKAGES=`python -c 'import site; print(site.getsitepackages()[0])'` &&
     chmod -R a+w $SITE_PACKAGES/whitebox/
 
 
-# things to compile WRF-HYDRO
+# things to compile WRF-HYDRO need root user
+
+# When compiling WRF do:
+#   conda deactivate
+#   export LD_LIBRARY_PATH=$NETCDF_LIB
+#   export LIBRARY_PATH=$NETCDF_LIB
+# https://stackoverflow.com/questions/558803/how-can-i-add-a-default-include-path-for-gcc-in-linux
+#   export PATH2=$PATH
+#   export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 USER root
 ARG DEBIAN_FRONTEND=noninteractive
