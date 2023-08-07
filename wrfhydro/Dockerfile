@@ -17,15 +17,6 @@ RUN mamba install -c conda-forge -y \
     xarray \
     whitebox 
 
-# WHydro Forcing
-RUN mamba install -c conda-forge -y \
-    hvplot \
-    geoviews \
-    esmpy
-#install_requires=['netCDF4', 'numpy', 'ESMPy', 'mpi4py']
-
-ENV ESMFMKFILE=/opt/conda/lib/esmf.mk
-
 # ------------------------
 # WhiteBox fix for NB_UID
 # ------------------------
@@ -34,9 +25,25 @@ RUN SITE_PACKAGES=`python -c 'import site; print(site.getsitepackages()[0])'` &&
     echo $SITE_PACKAGES &&\
     chmod -R a+w $SITE_PACKAGES/whitebox/
 
+# ------------------------
+# WHydro Forcing
+# ------------------------
 
-# things to compile WRF-HYDRO need root user
+RUN mamba install -c conda-forge -y \
+    hvplot \
+    geoviews
 
+RUN mamba install -c conda-forge -y \
+    esmpy
+
+#install_requires=['netCDF4', 'numpy', 'ESMPy', 'mpi4py']
+
+ENV ESMFMKFILE=/opt/conda/lib/esmf.mk
+
+# ------------------------
+# things to compile WRF-HYDRO 
+# need root user
+# ------------------------
 # When compiling WRF do:
 #   conda deactivate
 #   export LD_LIBRARY_PATH=$NETCDF_LIB
