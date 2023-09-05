@@ -26,6 +26,13 @@ RUN SITE_PACKAGES=`python -c 'import site; print(site.getsitepackages()[0])'` &&
     chmod -R a+w $SITE_PACKAGES/whitebox/
 
 # ------------------------
+# Rscript
+# ------------------------
+RUN mamba install -c conda-forge -y \
+    R \
+    r-ncdf4 r-stringr r-plyr
+
+# ------------------------
 # WHydro Forcing
 # ------------------------
 
