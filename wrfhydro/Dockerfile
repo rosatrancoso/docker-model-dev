@@ -34,7 +34,10 @@ RUN mamba install -c conda-forge -y \
     geoviews
 
 RUN mamba install -c conda-forge -y \
-    esmpy
+    cftime \
+    dask-core \
+    pytest \
+    xesmf
 
 #install_requires=['netCDF4', 'numpy', 'ESMPy', 'mpi4py']
 
